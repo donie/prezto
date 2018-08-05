@@ -11,3 +11,52 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+
+# Welcome message
+echo -e "==============================";
+neofetch
+
+# Generic
+export TERM="xterm-256color"
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export DEFAULT_USER="donie"
+export LSCOLORS="gxcxfxdxbxaxaxbxbxaxax"
+export CLICOLOR=true
+export LS_OPTIONS='--color=auto'
+export VISUAL=vim
+export EDITOR="$VISUAL"
+unsetopt CORRECT
+
+# Completions
+eval "$(pipenv --completion)"
+
+# Keybinds
+bindkey -s "^[OM" "^M"
+
+# Alias
+alias df='df -h'
+alias so='source'
+alias top='htop'
+alias code="cd ~/Code/"
+alias cpwp="rsync -rv ~/Documents/temp/ ~/Documents/weblog/"
+alias brewlog='brew log --pretty=format:"%h, %aI, %an%n >>%s<<%n" --graph'
+alias jkbuild="jekyll build --source ~/Documents/blogsrc/ --destination ~/Documents/temp/"
+alias jkwatch="jekyll build --source ~/Documents/blogsrc/ --destination ~/Documents/temp/ --watch"
+alias youtube-mp4='youtube-dl -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio" --merge-output-format mp4'
+
+# Functions
+function sgproxy() {
+    case "$1" in
+        on)
+            export https_proxy=http://127.0.0.1:6152
+            export http_proxy=http://127.0.0.1:6152
+            export all_proxy=socks5://127.0.0.1:6153
+            ;;
+        off)
+            unset https_proxy
+            unset http_proxy
+            unset all_proxy
+            ;;
+    esac
+}

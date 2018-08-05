@@ -7,6 +7,22 @@ and prompt themes.
 
 Installation
 ------------
+  1. Quick and dirty:
+
+     ```console
+     zsh
+     git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+
+     setopt EXTENDED_GLOB
+     for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+       ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+     done
+
+     chsh -s /bin/zsh
+     ```
+
+Installation
+------------
 
 Prezto will work with any recent release of Zsh, but the minimum required
 version is 4.3.11.
