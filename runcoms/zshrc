@@ -55,9 +55,9 @@ alias youtube-mp4='youtube-dl -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvide
 function sgproxy() {
     case "$1" in
         on)
-            export https_proxy=http://127.0.0.1:6152
-            export http_proxy=http://127.0.0.1:6152
-            export all_proxy=socks5://127.0.0.1:6153
+            export https_proxy=http://127.0.0.1:8888
+            export http_proxy=http://127.0.0.1:8888
+            export all_proxy=socks5://127.0.0.1:8889
             ;;
         off)
             unset https_proxy
