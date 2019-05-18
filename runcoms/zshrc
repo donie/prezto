@@ -37,8 +37,14 @@ bindkey -s "^[OM" "^M"
 # Alias
 alias df='df -h'
 alias so='source'
+alias cat='bat'
 alias top='htop'
 alias code="cd ~/Code/"
+alias help='tldr'
+alias ncdu='ncdu --color dark'
+alias ping='prettyping --nolegend'
+alias fdd='flickr_download -d'
+
 alias cpwp="rsync -rv ~/Documents/temp/ ~/Documents/weblog/"
 alias brewlog='brew log --pretty=format:"%h, %aI, %an%n >>%s<<%n" --graph'
 alias jkbuild="jekyll build --source ~/Documents/blogsrc/ --destination ~/Documents/temp/"
@@ -60,3 +66,48 @@ function sgproxy() {
             ;;
     esac
 }
+
+function ssproxy() {
+    case "$1" in
+        on)
+            export https_proxy=http://127.0.0.1:6154
+            export http_proxy=http://127.0.0.1:6154
+            export all_proxy=socks5://127.0.0.1:6155
+            ;;
+        off)
+            unset https_proxy
+            unset http_proxy
+            unset all_proxy
+            ;;
+    esac
+}
+
+function clashproxy() {
+    case "$1" in
+        on)
+            export https_proxy=http://127.0.0.1:7890
+            export http_proxy=http://127.0.0.1:7890
+            export all_proxy=socks5://127.0.0.1:7891
+            ;;
+        off)
+            unset https_proxy
+            unset http_proxy
+            unset all_proxy
+            ;;
+    esac
+}
+
+f() {
+  local out file key
+  IFS=$'\n' out=($(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e))
+  key=$(head -1 <<< "$out")
+  file=$(head -2 <<< "$out" | tail -1)
+  if [ -n "$file" ]; then
+    [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
+  fi
+}
+
+
+eval "$(rbenv init -)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
